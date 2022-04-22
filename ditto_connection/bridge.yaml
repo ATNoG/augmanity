@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bridge
+spec:
+  selector:
+    matchLabels:
+      app: bridge
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: bridge
+    spec:
+      containers:
+      - name: bridge
+        image: bridge:latest
+        imagePullPolicy: Never
+        command: ["python3"]
+        args: ["/home/bosch/bridge/bridge.py","--addr_ditto","10.0.13.32","--port_ditto","30525","--ditto_user","ditto","--ditto_pwd","ditto","--addr_influxdb","10.152.183.48","--port_influxdb","8086"]
